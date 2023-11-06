@@ -1,61 +1,38 @@
 var iFileName = "The Scales of Justice.js";
 RequiredSheetVersion(13);
 
-MagicItemsList["scales of justice"] = {
-    name: "The Scales of Justice",
-    source: ["HB", 0],
-    type: "weapon (bastard sword)",
-    rarity: "artifact",
-    attunement: true,
-    description: "This unpolished flat bastard sword is associated with Abadara. It cannot be stained, dulled, or chipped, and the grip remains dry under any conditions.",
-    descriptionLong: "The Scales of Justice are a testament to Abadara's power, designed to maintain order and exact justice. The bearer gains proficiency with the sword, immunity to charm, and can mark a target for justice, dealing extra psychic damage. However, attuning to it comes with a covenant to uphold the law.",
-    descriptionFull: "The Scales of Justice is a bastard sword that... [Long Description Here]",
-    weaponsAdd: ["The Scales of Justice"],
-    weaponOptions: {
-        regExpSearch: /^(?=.*scales)(?=.*justice).*$/i,
-        name: "The Scales of Justice",
-        source: ["HB", 0],
-        ability: 1,
-        type: "Martial",
-        damage : [1, 8, "slashing"],
-        range : "Melee",
-        weight: 6,
-        description: "Versatile (1d10); +3 weapon; Immune to water, staining, dulling, chipping",
-        modifiers: [3, ""], // +3 to attack rolls
-        abilitytodamage: true
-    },
-    attunement: true,
-    attunementDescription: "Blind Justice, Bond of Order, The Guilty Blade, The Warden's Calling",
-    chooseGear: {
-        type: "weapon",
-        prefixOrSuffix: "suffix",
-        description: "The Scales of Justice",
-        weaponDescription: "A bastard sword that becomes a +3 magic weapon and gains other magical properties when attuned."
-    },
-    additionalSpells: {
-        class: "any",
-        level: [0, 9],
-        known: {
-            cantrips : ["true strike"]
-        }
-    },
-    // Define the unique properties based on class when attuned
-    usages: 1,
-    recovery: "long rest",
-    additionalChoices: ["Avatar of Justice"],
-    avatarOfJustice: {
-        description: "Transform into an Avatar of Justice, respec your character to Cleric (Order), Warlock (Hexblade), or Paladin (Vengeance). Gain additional class-based powers.",
-        // Define the class-specific benefits here
-        // Cleric: [...]
-        // Warlock: [...]
-        // Paladin: [...]
-    },
-    action: ["bonus action", " (Halo of Light/True Strike)"], // Actions related to the item's abilities
-    // Include the function to apply attunement checks and effects
-    attuneFunc: function (character) {
-        // Check for alignment and other attunement requirements
-        // Apply changes based on the class if character respecs
-    },
-    // Define any other functions needed for custom behavior
-    // e.g., function to handle marking a target for justice
+MagicItemsList["the scales of justice"] = {
+	name : "The Scales of Justice",
+	source : ["HB", 0],
+	type : "weapon (bastard sword)",
+	rarity : "artifact",
+	attunement : true,
+	description : "This unpolished and flat blade never stains, dulls, or chips. Its black leather grip feels good and well used in hand and never gets wet. While attuned, I am proficient with it, immune to charm, can invoke Voice of Authority, gain a Bonus Action True Strike, and can mark a target for justice.",
+	descriptionLong : "The Scales of Justice is a +3 magic longsword that deals 1d8 slashing damage, versatile. When attuned, I gain proficiency with it, immunity to charm effects, can invoke Voice of Authority after casting a spell on an ally, allowing them to make a weapon attack as a reaction. I gain a Bonus Action version of True Strike and can mark a target once per long rest to deal extra psychic damage on hits against them.",
+	descriptionFull : "The Scales of Justice is a powerful artifact associated with Abadara, the Goddess of Balance and Justice. It is a +3 magic longsword that never stains, dulls, or chips, with a black leather grip that never gets wet. While attuned, the wielder becomes proficient with the sword, immune to charm effects, can invoke Voice of Authority, gains a Bonus Action version of the True Strike cantrip, and can mark a target once per long rest to deal extra psychic damage on hits against them. If the target is a worshiper of Lythandia or Albion or a wanted criminal, they take 2d6 extra damage; otherwise, misusing the mark brings bad fortune upon the wielder.",
+	weaponsAdd : ["The Scales of Justice"],
+	weaponOptions : {
+		baseWeapon : "longsword",
+		regExpSearch : /^(?=.*scales)(?=.*justice).*$/i,
+		name : "The Scales of Justice",
+		source : ["HB", 0],
+		modifiers : [3, ""], // +3 to attack and damage rolls
+		description : "Versatile (1d10); If attuned: proficiency, immune to charm, Voice of Authority, Bonus Action True Strike, mark for justice"
+	},
+	prereqeval : function(v) {
+		return !(/evil/i).test(What("Alignment")) && !(/chaotic/i).test(What("Alignment"));
+	},
+	usages : 1,
+	recovery : "long rest",
+	action : [["action", "Mark for Justice (after True Strike)"]],
+	attuneFunc : function (isAttuned) {
+		if (isAttuned) {
+			// Add any code that runs when the character becomes attuned to the item
+		} else {
+			// Add any code that runs when the character is no longer attuned to the item
+		}
+	}
+	// Add more properties and methods as needed for the full functionality
 };
+
+// You will need to add more functionality here for all the features of the item
